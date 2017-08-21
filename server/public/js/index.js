@@ -72,21 +72,9 @@ module.exports = __webpack_require__(1);
 
 /***/ }),
 /* 1 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, exports) {
 
-"use strict";
-
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-var Test = function Test() {
-  _classCallCheck(this, Test);
-
-  this.a = 'hello girl';
-};
-
-var test = new Test();
-document.body.innerHTML = test.a;
+throw new Error("Module build failed: Error: ENOENT: no such file or directory, open 'C:\\Users\\chestnut_647\\Desktop\\es6\\lottery\\app\\js\\package.json'\n    at Object.fs.openSync (fs.js:584:18)\n    at Object.fs.readFileSync (fs.js:491:33)\n    at ConfigChainBuilder.addConfig (C:\\Users\\chestnut_647\\Desktop\\es6\\lottery\\node_modules\\_babel-core@6.26.0@babel-core\\lib\\transformation\\file\\options\\build-config-chain.js:146:32)\n    at ConfigChainBuilder.findConfigs (C:\\Users\\chestnut_647\\Desktop\\es6\\lottery\\node_modules\\_babel-core@6.26.0@babel-core\\lib\\transformation\\file\\options\\build-config-chain.js:102:30)\n    at buildConfigChain (C:\\Users\\chestnut_647\\Desktop\\es6\\lottery\\node_modules\\_babel-core@6.26.0@babel-core\\lib\\transformation\\file\\options\\build-config-chain.js:61:13)\n    at OptionManager.init (C:\\Users\\chestnut_647\\Desktop\\es6\\lottery\\node_modules\\_babel-core@6.26.0@babel-core\\lib\\transformation\\file\\options\\option-manager.js:354:58)\n    at File.initOptions (C:\\Users\\chestnut_647\\Desktop\\es6\\lottery\\node_modules\\_babel-core@6.26.0@babel-core\\lib\\transformation\\file\\index.js:212:65)\n    at new File (C:\\Users\\chestnut_647\\Desktop\\es6\\lottery\\node_modules\\_babel-core@6.26.0@babel-core\\lib\\transformation\\file\\index.js:135:24)\n    at Pipeline.transform (C:\\Users\\chestnut_647\\Desktop\\es6\\lottery\\node_modules\\_babel-core@6.26.0@babel-core\\lib\\transformation\\pipeline.js:46:16)\n    at transpile (C:\\Users\\chestnut_647\\Desktop\\es6\\lottery\\node_modules\\_babel-loader@7.1.2@babel-loader\\lib\\index.js:50:20)");
 
 /***/ })
 /******/ ]);
