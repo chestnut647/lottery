@@ -2,7 +2,7 @@
  * @Author: chestnut_647 
  * @Date: 2017-08-22 12:40:56 
  * @Last Modified by: chestnut_647
- * @Last Modified time: 2017-08-23 15:22:57
+ * @Last Modified time: 2017-08-25 15:04:58
  */
 class Calculate {
   /* 
@@ -27,7 +27,8 @@ class Calculate {
    * @return (Array) 奖金范围
    */
   computeBonus(active, play_name) {
-    const play = play_name.splice('');
+
+    const play = play_name.split('');
     const self = this;
     let arr = new Array(play[1]).fill(0);
     let min, max;
@@ -61,9 +62,8 @@ class Calculate {
             max = 1;
           }
         }
-        return [min, max].map(item => item*self.play_list.get(play_name).bonus);
       }
-      
+      return [min, max].map(item => item*self.play_list.get(play_name).bonus);
     }
   }
 

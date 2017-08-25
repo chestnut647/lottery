@@ -2,11 +2,11 @@
  * @Author: chestnut_647 
  * @Date: 2017-08-21 16:23:27 
  * @Last Modified by: chestnut_647
- * @Last Modified time: 2017-08-25 10:12:16
+ * @Last Modified time: 2017-08-25 11:05:53
  */
 class Timer {
   countdown(end, update, handle) {
-    const now = new Date.getTime();
+    const now = Date.now();
     const self = this;
     // 时间到
     if(now - end) {

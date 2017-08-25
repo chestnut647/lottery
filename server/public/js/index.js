@@ -13891,6 +13891,15 @@ var _lottery2 = _interopRequireDefault(_lottery);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+/*
+ * @Author: chestnut_647 
+ * @Date: 2017-08-21 16:29:56 
+ * @Last Modified by: chestnut_647
+ * @Last Modified time: 2017-08-25 10:57:45
+ * @description: 整个彩票的大入口文件
+ */
+new _lottery2.default();
+
 /***/ }),
 /* 129 */
 /***/ (function(module, exports, __webpack_require__) {
@@ -19530,7 +19539,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                                                                                                                                                            * @Author: chestnut_647 
                                                                                                                                                            * @Date: 2017-08-21 16:32:38 
                                                                                                                                                            * @Last Modified by: chestnut_647
-                                                                                                                                                           * @Last Modified time: 2017-08-25 10:37:20
+                                                                                                                                                           * @Last Modified time: 2017-08-25 14:58:10
                                                                                                                                                            * @description: 负责11选5的具体彩种模块
                                                                                                                                                            */
 
@@ -19601,6 +19610,8 @@ var mix = function mix() {
       }
     }
   }
+
+  return Mix;
 };
 
 var Lottery = function (_mix) {
@@ -19648,14 +19659,15 @@ var Lottery = function (_mix) {
         (0, _jquery2.default)(self.issue_el).text(res.issue);
         self.countdown(res.end_time, function (time) {
           (0, _jquery2.default)(self.countdown_el).html(time);
+          console.log(time);
         }, function () {
           setTimeout(function () {
             self.updateState();
-            self.getOmit(self, issue).then(function (res) {
-              self.setOmit(res);
+            self.getOmit(self, self.issue).then(function (res) {
+              // self.setOmit(res.data);
             });
-            self.getOpenCode(self, issue).then(function (res) {
-              self.setOpenCode(res);
+            self.getOpenCode(self, self.issue).then(function (res) {
+              // self.setOpenCode(res.data);
             });
           }, 500);
         });
@@ -19668,7 +19680,7 @@ var Lottery = function (_mix) {
       (0, _jquery2.default)('#plays').on('click', 'li', self.changePlayNav.bind(self));
       (0, _jquery2.default)('.boll-list').on('click', '.btn-boll', self.toggleCodeActive.bind(self));
       (0, _jquery2.default)('#confirm_sel_code').on('click', self.addCode.bind(self));
-      (0, _jquery2.default)('.dxjs').on('click', 'li', self.assistHandle.bind(self));
+      (0, _jquery2.default)('.dxjs').on('click', 'li', self.assignHandle.bind(self));
       (0, _jquery2.default)('.qkmethod').on('click', '.btn-middle', self.getRandomCode.bind(self));
     }
   }]);
@@ -19695,7 +19707,7 @@ var _createClass = function () { function defineProperties(target, props) { for 
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       * @Author: chestnut_647 
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       * @Date: 2017-08-23 09:03:44 
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       * @Last Modified by: chestnut_647
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * @Last Modified time: 2017-08-23 16:19:30
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * @Last Modified time: 2017-08-25 15:02:17
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       * @description: 用来存取玩法奖金等基本信息（基本信息共享）
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       */
 
@@ -19754,7 +19766,7 @@ var Base = function () {
     key: 'initNumber',
     value: function initNumber() {
       for (var i = 1; i < 12; i++) {
-        this.number.add(i).padStart(2, '0');
+        this.number.add((i + '').padStart(2, '0'));
       }
     }
   }, {
@@ -19789,7 +19801,7 @@ var Base = function () {
         }
       }
 
-      (0, _jquery2.default)(select.omit_el).each(function (index, item) {
+      (0, _jquery2.default)(self.omit_el).each(function (index, item) {
         (0, _jquery2.default)(item).text(self.omit.get(index));
       });
     }
@@ -19840,7 +19852,7 @@ var Base = function () {
       var $cur = (0, _jquery2.default)(e.currentTarget);
       $cur.addClass('active').siblings().removeClass('active');
       self.cur_play = $cur.attr('desc').toLocaleLowerCase();
-      (0, _jquery2.default)('#zx_sm span').html(self.play_list.get(self.cur_play)[tip]);
+      (0, _jquery2.default)('#zx_sm span').html(self.play_list.get(self.cur_play).tip);
       (0, _jquery2.default)('.boll-list .btn-boll').removeClass('btn-boll-active');
       self.getCout();
     }
@@ -19931,8 +19943,9 @@ var Base = function () {
     value: function getCout() {
       var self = this;
       var active = (0, _jquery2.default)('.boll-list .btn-boll-active').length;
-      var count = self.computeCount(active, self, cur_play);
-      var range = self.computeBonus(active, self, cur_play);
+      var count = self.computeCount(active, self, self.cur_play);
+
+      var range = self.computeBonus(active, self.cur_play);
       var money = count * 2;
       var win1 = range[0] - money;
       var win2 = range[1] - money;
@@ -20020,7 +20033,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
  * @Author: chestnut_647 
  * @Date: 2017-08-22 12:40:56 
  * @Last Modified by: chestnut_647
- * @Last Modified time: 2017-08-23 15:22:57
+ * @Last Modified time: 2017-08-25 15:04:16
  */
 var Calculate = function () {
   function Calculate() {
@@ -20055,7 +20068,8 @@ var Calculate = function () {
   }, {
     key: 'computeBonus',
     value: function computeBonus(active, play_name) {
-      var play = play_name.splice('');
+
+      var play = play_name.split('');
       var self = this;
       var arr = new Array(play[1]).fill(0);
       var min = void 0,
@@ -20090,10 +20104,10 @@ var Calculate = function () {
               max = 1;
             }
           }
-          return [min, max].map(function (item) {
-            return item * self.play_list.get(play_name).bonus;
-          });
         }
+        return [min, max].map(function (item) {
+          return item * self.play_list.get(play_name).bonus;
+        });
       }
     }
   }], [{
@@ -20267,7 +20281,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
  * @Author: chestnut_647 
  * @Date: 2017-08-21 16:23:27 
  * @Last Modified by: chestnut_647
- * @Last Modified time: 2017-08-25 10:12:16
+ * @Last Modified time: 2017-08-25 11:05:53
  */
 var Timer = function () {
   function Timer() {
@@ -20277,7 +20291,7 @@ var Timer = function () {
   _createClass(Timer, [{
     key: 'countdown',
     value: function countdown(end, update, handle) {
-      var now = new Date.getTime();
+      var now = Date.now();
       var self = this;
       // 时间到
       if (now - end) {

@@ -2,7 +2,7 @@
  * @Author: chestnut_647 
  * @Date: 2017-08-23 09:03:44 
  * @Last Modified by: chestnut_647
- * @Last Modified time: 2017-08-23 16:19:30
+ * @Last Modified time: 2017-08-25 15:02:17
  * @description: 用来存取玩法奖金等基本信息（基本信息共享）
  */
 import $ from 'jquery';
@@ -51,7 +51,7 @@ class Base {
   }
   initNumber() {
     for(let i=1; i<12; i++) {
-      this.number.add(i).padStart(2, '0');
+      this.number.add((i+'').padStart(2, '0'));
     }
   }
   setOmit(omit) {
@@ -60,7 +60,7 @@ class Base {
     for(let [index, item] of omit.entries()) {
       self.omit.set(index, item);
     }
-    $(select.omit_el).each(function(index, item) {
+    $(self.omit_el).each(function(index, item) {
       $(item).text(self.omit.get(index));
     })
   }
@@ -83,7 +83,7 @@ class Base {
     let $cur = $(e.currentTarget);
     $cur.addClass('active').siblings().removeClass('active');
     self.cur_play = $cur.attr('desc').toLocaleLowerCase();
-    $('#zx_sm span').html(self.play_list.get(self.cur_play)[tip]);
+    $('#zx_sm span').html(self.play_list.get(self.cur_play).tip);
     $('.boll-list .btn-boll').removeClass('btn-boll-active');
     self.getCout();
   }
@@ -169,8 +169,9 @@ class Base {
   getCout() {
     let self = this;
     let active =  $('.boll-list .btn-boll-active').length;
-    let count = self.computeCount(active, self, cur_play);
-    let range = self.computeBonus(active, self, cur_play);
+    let count = self.computeCount(active, self, self.cur_play);
+
+    let range = self.computeBonus(active, self.cur_play);
     let money = count*2;
     let win1 = range[0] - money;
     let win2 = range[1] - money;

@@ -2,7 +2,7 @@
  * @Author: chestnut_647 
  * @Date: 2017-08-21 16:32:38 
  * @Last Modified by: chestnut_647
- * @Last Modified time: 2017-08-25 10:37:20
+ * @Last Modified time: 2017-08-25 14:58:10
  * @description: 负责11选5的具体彩种模块
  */
 import 'babel-polyfill';
@@ -27,6 +27,7 @@ const mix = function(...mixins) {
     copyProperties(Mix, mixin);
     copyProperties(Mix.prototype, mixin.prototype);
   }
+  return Mix;
 }
 
 class Lottery extends mix(Base, Calculate, Interface, Timer) {
@@ -61,14 +62,16 @@ class Lottery extends mix(Base, Calculate, Interface, Timer) {
       $(self.issue_el).text(res.issue);
       self.countdown(res.end_time, function(time) {
         $(self.countdown_el).html(time);
+        console.log(time);
+        
       }, function() {
         setTimeout(function() {
           self.updateState();
-          self.getOmit(self, issue).then(function(res) {
-            self.setOmit(res);
+          self.getOmit(self, self.issue).then(function(res) {
+            // self.setOmit(res.data);
           });
-          self.getOpenCode(self, issue).then(function(res) {
-            self.setOpenCode(res);
+          self.getOpenCode(self, self.issue).then(function(res) {
+            // self.setOpenCode(res.data);
           });
         }, 500);
       })
@@ -79,7 +82,7 @@ class Lottery extends mix(Base, Calculate, Interface, Timer) {
     $('#plays').on('click', 'li', self.changePlayNav.bind(self));
     $('.boll-list').on('click', '.btn-boll', self.toggleCodeActive.bind(self));
     $('#confirm_sel_code').on('click', self.addCode.bind(self));
-    $('.dxjs').on('click', 'li', self.assistHandle.bind(self));
+    $('.dxjs').on('click', 'li', self.assignHandle.bind(self));
     $('.qkmethod').on('click', '.btn-middle', self.getRandomCode.bind(self));
   }
 }
